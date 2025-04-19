@@ -1,0 +1,261 @@
+#+title:  DOOM Emacs configuration
+#+author: Andrés Núñez (rocco)
+#+STARTUP: showeverything
+#+PROPERTY: toc:2
+#+PROPERTY: header-args:emacs-lisp :tangle yes :results none
+
+
+* Literate configuration
+Remember to enable
+:config
+literate
+
+On the DOOM Emacs init.el file in order for this to work. Also, the contents of config.el should be:
+
+;;; config.el -*- lexical-binding: t; -*-
+
+(org-babel-load-file
+ (expand-file-name "config.org" doom-user-dir))
+
+
+* Initial stuff and initial notes
+Place your private configuration here! Remember, you do not need to run 'doom sync' after modifying this file!
+
+* Identification
+Some functionality uses this to identify you, e.g. GPG configuration, email clients, some templates and snippets. It is optional.
+#+begin_src emacs-lisp
+(setq user-full-name ""
+      user-mail-address "")
+#+end_src
+
+* Fonts
+Doom exposes five (optional) variables for controlling fonts in Doom:
+
+- doom-font' -- the primary font to use
+- doom-variable-pitch-font' -- a non-monospace font (where applicable)
+- doom-big-font' -- used for doom-big-font-mode'; use this for presentations or streaming.
+- doom-symbol-font' -- for symbols
+- doom-serif-font' -- for the fixed-pitch-serif' face
+
+See 'C-h v doom-font' for documentation and more examples of what they accept.
+#+begin_src emacs-lisp
+(setq doom-font (font-spec :family "IosevkaTerm Nerd Font" :size 17 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font" :size 17 ))
+#+end_src
+
+If you or Emacs can't find your font, use 'M-x describe-font' to look them up, M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to refresh your font settings. If Emacs still can't find your font, it likely wasn't installed correctly. Font issues are rarely Doom issues!
+
+* Themes
+There are two ways to load a theme. Both assume the theme is installed and available. You can either set doom-theme' or manually load a theme with the load-theme' function. This is the default:
+(setq doom-theme 'doom-one)
+
+Lately I've been using:
+;; (setq doom-theme 'catppuccin)
+;; (setq catppuccin-flavor 'frappe)
+
+But I think I'll try gruber darkier for a while:
+#+begin_src emacs-lisp
+;; Switching between theese two themes to test config.org
+;; (setq doom-theme 'gruber-darker)
+(setq doom-theme 'modus-vivendi-deuteranopia)
+#+end_src
+
+* Relative numbers
+#+begin_src emacs-lisp
+(setq display-line-numbers-type 'relative)
+#+end_src
+
+* Org config that came 'out of the box' with DOOM
+This is currently commented out:
+
+If you use org' and don't want your org files in the default location below,
+change org-directory'. It must be set before org loads!
+(setq org-directory "~/Notes/")
+(setq org-agenda-files (directory-files-recursively "~/Notes/" "\\.org$"))
+
+* Additional notes that came with DOOM Emacs about configuring stuff
+;; Whenever you reconfigure a package, make sure to wrap your config in an
+;; after!' block, otherwise Doom's defaults may override your settings. E.g.
+;;
+;;   (after! PACKAGE
+;;     (setq x y))
+;;
+;; The exceptions to this rule:
+;;
+;;   - Setting file/directory variables (like org-directory')
+;;   - Setting variables which explicitly tell you to set them before their
+;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
+;;   - Setting doom variables (which start with 'doom-' or '+').
+;;
+;; Here are some additional functions/macros that will help you configure Doom.
+;;
+;; - load!' for loading external *.el files relative to this one
+;; - use-package!' for configuring packages
+;; - after!' for running code after a package has loaded
+;; - add-load-path!' for adding directories to the load-path', relative to
+;;   this file. Emacs searches the load-path' when you load packages with
+;;   require' or use-package'.
+;; - map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+;; This will open documentation for it, including demos of how they are used.
+;; Alternatively, use C-h o' to look up a symbol (functions, variables, faces,
+;; etc).
+;;
+;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+;; they are implemented.
+
+
+* Tree Sitter
+I don't ven remember what this is
+
+#+begin_src emacs-lisp
+(use-package! tree-sitter
+  :hook (prog-mode . turn-on-tree-sitter-mode)
+  :hook (tree-sitter-after-on . tree-sitter-hl-mode)
+  :config
+  (require 'tree-sitter-langs)
+  ;; This makes every node a link to a section of code
+  (setq tree-sitter-debug-jump-buttons t
+        ;; and this highlights the entire sub tree in your code
+        tree-sitter-debug-highlight-jump-region t))
+#+end_src
+
+* Wayland
+The following should make the clipboard work, I think
+
+#+begin_src emacs-lisp
+(when (getenv "WAYLAND_DISPLAY")
+  (setq wl-copy-p nil
+        interprogram-cut-function (lambda (text)
+                                    (setq-local process-connection-type 'pipe)
+                                    (setq wl-copy-p (start-process "wl-copy" nil "wl-copy" "-f" "-n"))
+                                    (process-send-string wl-copy-p text)
+                                    (process-send-eof wl-copy-p))
+        interprogram-paste-function (lambda ()
+                                      (unless (and wl-copy-p (process-live-p wl-copy-p))
+                                        (shell-command-to-string "wl-paste -n | tr -d '\r'")))))
+#+end_src
+
+* LSP
+** Clangd
+#+begin_src emacs-lisp
+;; (setq lsp-clients-clangd-args '("j=3"
+(setq lsp-clients-clangd-args '(
+                                "--background-index"
+                                "--clang-tidy"
+                                "--completion-style=detailed"
+                                "--header-insertion=never"
+                                "--header-insertion-decorators=0"))
+(after! lsp-clangd (set-lsp-priority! 'clangd 1))
+#+end_src
+
+** Optimizing a little
+[[https://emacs-lsp.github.io/lsp-mode/page/performance/][Source]]
+#+begin_src emacs-lisp
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+(fset #'jsonrpc--log-event #'ignore)
+#+end_src
+
+* Splash screen
+#+begin_src emacs-lisp
+(setq fancy-splash-image (concat doom-user-dir "gnu_color.png"))
+(add-hook! '+doom-dashboard-functions :append
+  (insert "\n" (+doom-dashboard--center +doom-dashboard--width "")))
+#+end_src
+
+* Org-Roam
+#+begin_src emacs-lisp
+(after! org
+  (setq org-roam-directory "~/Notes/roam")
+  (setq org-roam-index-file "~/Notes/inbox.org")
+  (org-roam-db-autosync-mode)
+  (setq org-hide-emphasis-markers t)
+  (setq org-agenda-prefix-format " %?-12t% s"))
+(setq org-agenda-files (directory-files-recursively "~/Notes" "\\.org$"))
+(setq org-agenda-files '("~/Notes/"
+                         "~/Notes/daily/"))
+;; (setq org-agenda-prefix-format " %?-12t% s")
+;; (org-roam-db-autosync-mode)
+#+end_src
+
+* Loading Lisp functions
+#+begin_src emacs-lisp
+;; lip functions
+(load! "lisp/popup-dirvish-browser.el")
+#+end_src
+
+
+* Gptel (Might remove this)
+#+begin_src emacs-lisp
+(use-package! gptel
+  :config
+  (setq! gptel-api-key (getenv "openai_key")))
+#+end_src
+
+* Capture templates (Copied from Joshua Blais. Thanks)
+#+begin_src emacs-lisp
+(after! org
+(setq org-capture-templates
+      '(("t" "Todo" entry
+         (file+headline "~/Notes/inbox.org" "Inbox")
+         "* TODO %^{Task}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
+        ("e" "Event" entry
+         (file+headline "~/Notes/calendar.org" "Events")
+         "* %^{Event}\n%^{SCHEDULED}T\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:CONTACT: %(org-capture-ref-link \"~/Notes/contacts.org\")\n:END:\n%?")
+        ("d" "Deadline" entry
+         (file+headline "~/Notes/calendar.org" "Deadlines")
+         "* TODO %^{Task}\nDEADLINE: %^{Deadline}T\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
+        ("p" "Project" entry
+         (file+headline "~/Notes/projects.org" "Projects")
+         "* PROJ %^{Project name}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n** TODO %?")
+        ("i" "Idea" entry
+         (file+headline "~/Notes/ideas.org" "Ideas")
+         "** IDEA %^{Idea}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
+        ("c" "Contact" entry
+         (file+headline "~/Notes/contacts.org" "Inbox")
+         "* %^{Name}
+
+:PROPERTIES:
+:CREATED: %U
+:CAPTURED: %a
+:EMAIL: %^{Email}
+:PHONE: %^{Phone}
+:BIRTHDAY: %^{Birthday +1y}u
+:LOCATION: %^{Address}
+:LAST_CONTACTED: %U
+:END:
+\\ *** Communications
+\\ *** Notes
+%?")
+        ("n" "Note" entry
+         (file+headline "~/Notes/notes.org" "Inbox")
+         "* [%<%Y-%m-%d %a>] %^{Title}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?"
+         :prepend t)))
+
+;; Helper function to select and link a contact
+(defun org-capture-ref-link (file)
+  "Create a link to a contact in contacts.org"
+  (let* ((headlines (org-map-entries
+                     (lambda ()
+                       (cons (org-get-heading t t t t)
+                             (org-id-get-create)))
+                     t
+                     (list file)))
+         (contact (completing-read "Contact: "
+                                   (mapcar #'car headlines)))
+         (id (cdr (assoc contact headlines))))
+    (format "[[id:%s][%s]]" id contact)))
+
+)
+#+end_src
+
+* Google calendar
+#+begin_src emacs-lisp
+;; Call this lisp file from your config.el
+(let ((private-config (expand-file-name "private/org-gcal-credentials.el" doom-private-dir)))
+  (when (file-exists-p private-config)
+    (load private-config)))
+#+end_src
