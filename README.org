@@ -1,0 +1,9 @@
+#+title: Doom Emacs configuration
+
+* Intro
+Just the configuration I use on my DOOM Emacs.
+
+I then realized having a repository out of this is kind of cumbersome, as I need to "fine tune" some things for my desktop and some other things for my laptop. But it just HAS to be my general lack of experience. I hope it is just a matter of practice.
+
+* Literate config
+The "main" configuration lives in config.org. In that file we should apply our modifications. Then, we can do SPC h r r (M-x doom/reload) to apply the changes. But I've found it's mostly better if we close/kill Emacs and then open it again.

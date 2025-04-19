@@ -24,8 +24,8 @@ Place your private configuration here! Remember, you do not need to run 'doom sy
 * Identification
 Some functionality uses this to identify you, e.g. GPG configuration, email clients, some templates and snippets. It is optional.
 #+begin_src emacs-lisp
-(setq user-full-name ""
-      user-mail-address "")
+(setq user-full-name "Andrés Núñez"
+      user-mail-address "nunezlopez.ja@gmail.com")
 #+end_src
 
 * Fonts
