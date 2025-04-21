@@ -39,8 +39,10 @@ Doom exposes five (optional) variables for controlling fonts in Doom:
 
 See 'C-h v doom-font' for documentation and more examples of what they accept.
 #+begin_src emacs-lisp
+;; on GNU/Linux desktop:
 (setq doom-font (font-spec :family "IosevkaTerm Nerd Font" :size 17 :weight 'semi-light)
       doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font" :size 17 ))
+;; on macOS we need a slightly smaller font (I should still try to see how the config above works)
 #+end_src
 
 If you or Emacs can't find your font, use 'M-x describe-font' to look them up, M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to refresh your font settings. If Emacs still can't find your font, it likely wasn't installed correctly. Font issues are rarely Doom issues!
@@ -57,7 +59,7 @@ But I think I'll try gruber darkier for a while:
 #+begin_src emacs-lisp
 ;; Switching between theese two themes to test config.org
 ;; (setq doom-theme 'gruber-darker)
-(setq doom-theme 'modus-vivendi-deuteranopia)
+(setq doom-theme 'modus-operandi-deuteranopia)
 #+end_src
 
 * Relative numbers
