@@ -18,7 +18,7 @@ On the DOOM Emacs init.el file in order for this to work. Also, the contents of 
  (expand-file-name "config.org" doom-user-dir))
 
 
-* Initial stuff and initial notes
+* Some initial notes
 Place your private configuration here! Remember, you do not need to run 'doom sync' after modifying this file!
 
 * Identification
@@ -40,8 +40,15 @@ Doom exposes five (optional) variables for controlling fonts in Doom:
 See 'C-h v doom-font' for documentation and more examples of what they accept.
 #+begin_src emacs-lisp
 ;; on GNU/Linux desktop:
-(setq doom-font (font-spec :family "IosevkaTerm Nerd Font" :size 17 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font" :size 17 ))
+;; (setq doom-font (font-spec :family "IosevkaTerm Nerd Font" :size 17 :weight 'semi-light)
+;;       doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font" :size 17 ))
+
+;; It seems we can also use Iosevka Nerd Font Mono. And *I think* it looks better. Although the macOS config looks kinda too small so I'd keep the same font size I've been using on my Linux Desktop.
+(setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono"
+                           :size 18 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font Mono"
+                                          :size 18 ))
+
 ;; on macOS we need a slightly smaller font (I should still try to see how the config above works)
 ;; The config that I always used on macOS is the following:
 ;; (setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono"
@@ -51,10 +58,10 @@ See 'C-h v doom-font' for documentation and more examples of what they accept.
 
 ;; But let's try with something sligthly bigger, to ease my eyes a little:
 ;; Also, notice how the font installed has a different name. Should try this on my Desktop
-(setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono"
-                           :size 15 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font Mono"
-                                          :size 15 ))
+;; (setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono"
+;;                            :size 15 :weight 'semi-light)
+;;       doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font Mono"
+;;                                           :size 15 ))
 
 #+end_src
 
