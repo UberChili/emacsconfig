@@ -87,8 +87,8 @@ There is this new package I'm going to test. It automatically chances the theme 
 #+begin_src emacs-lisp
 (use-package circadian
   :config
-  (setq circadian-themes '(("05:00", modus-vivendi)
-                           ("19:00", modus-operandi-deuteranopia)))
+  (setq circadian-themes '(("05:00" . modus-operandi-deuteranopia)
+                           ("19:00" . modus-vivendi)))
   (circadian-setup))
 #+end_src
 
