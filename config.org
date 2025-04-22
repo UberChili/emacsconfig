@@ -77,9 +77,19 @@ Lately I've been using:
 
 But I think I'll try gruber darkier for a while:
 #+begin_src emacs-lisp
-;; Switching between theese two themes to test config.org
+;; Commenting this out while I test circadian
 ;; (setq doom-theme 'gruber-darker)
-(setq doom-theme 'modus-operandi-deuteranopia)
+;; (setq doom-theme 'modus-operandi-deuteranopia)
+#+end_src
+
+** Update: Using Circadian
+There is this new package I'm going to test. It automatically chances the theme depending on the time of day. The configuration is as follows:
+#+begin_src emacs-lisp
+(use-package circadian
+  :config
+  (setq circadian-themes '(("05:00", modus-vivendi)
+                           ("19:00", modus-operandi-deuteranopia)))
+  (circadian-setup))
 #+end_src
 
 * Relative numbers

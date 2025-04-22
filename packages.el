@@ -76,3 +76,6 @@
 
 ;; Google calendar
 (package! org-gcal)
+
+;; Circadian
+(package! circadian)
