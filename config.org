@@ -95,6 +95,12 @@ change org-directory'. It must be set before org loads!
 (setq org-directory "~/Notes/")
 (setq org-agenda-files (directory-files-recursively "~/Notes/" "\\.org$"))
 
+* Additional Org config
+Setting a sound for the pomodoro timer
+#+begin_src emacs-lisp
+(setq org-clock-sound (concat doom-user-dir "assets/sound.au"))
+#+end_src
+
 * Additional notes that came with DOOM Emacs about configuring stuff
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -183,7 +189,7 @@ The following should make the clipboard work, I think
 
 * Splash screen
 #+begin_src emacs-lisp
-(setq fancy-splash-image (concat doom-user-dir "gnu_color.png"))
+(setq fancy-splash-image (concat doom-user-dir "assets/gnu_color.png"))
 (add-hook! '+doom-dashboard-functions :append
   (insert "\n" (+doom-dashboard--center +doom-dashboard--width "")))
 #+end_src
