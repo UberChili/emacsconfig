@@ -82,7 +82,7 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +flyspell) ; tasing you for misspelling mispelling
+       ;; (spell +flyspell) ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
        :tools
@@ -152,7 +152,7 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org + roam2 +hugo + pretty)               ; organize your plain life in plain text
+       (org +roam2 +hugo +pretty)               ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;graphviz          ; diagrams for confusing yourself even more
@@ -193,62 +193,21 @@
        (default +bindings +smartparens))
 
 
-
-;;; For Gnome session
-;;; save & shutdown when we get an "end of session" signal on dbus
-(require 'dbus)
-
-(defun my-register-signals (client-path)
-  "Register for the 'QueryEndSession' and 'EndSession' signals from
-Gnome SessionManager.
-
-When we receive 'QueryEndSession', we just respond with
-'EndSessionResponse(true, \"\")'.  When we receive 'EndSession', we
-append this EndSessionResponse to kill-emacs-hook, and then call
-kill-emacs.  This way, we can shut down the Emacs daemon cleanly
-before we send our 'ok' to the SessionManager."
-  (setq my-gnome-client-path client-path)
-  (let ( (end-session-response (lambda (&optional arg)
-                                 (dbus-call-method-asynchronously
-                                  :session "org.gnome.SessionManager" my-gnome-client-path
-                                  "org.gnome.SessionManager.ClientPrivate" "EndSessionResponse" nil
-                                  t "") ) ) )
-    (dbus-register-signal
-     :session "org.gnome.SessionManager" my-gnome-client-path
-     "org.gnome.SessionManager.ClientPrivate" "QueryEndSession"
-     end-session-response )
-    (dbus-register-signal
-     :session "org.gnome.SessionManager" my-gnome-client-path
-     "org.gnome.SessionManager.ClientPrivate" "EndSession"
-     `(lambda (arg)
-        (add-hook 'kill-emacs-hook ,end-session-response t)
-        (kill-emacs) ) ) ) )
-
-;; DESKTOP_AUTOSTART_ID is set by the Gnome desktop manager when emacs
-;; is autostarted.  We can use it to register as a client with gnome
-;; SessionManager.
-(dbus-call-method-asynchronously
- :session "org.gnome.SessionManager"
- "/org/gnome/SessionManager"
- "org.gnome.SessionManager" "RegisterClient" 'my-register-signals
- "Emacs server" (getenv "DESKTOP_AUTOSTART_ID"))
-
-
 ;; EMMS minimal configuration
 ;; Emacs Multimedia System
-(use-package emms
-  :config
-  (require 'emms-setup)
-  (require 'emms-mpris)
-  (emms-all)
-  (emms-default-players)
-  (emms-mpris-enable)
-  :custom
-  (emms-browser-covers #'emms-browser-cache-thumbnail-async)
-  :bind
-  (("C-c w m b" . emms-browser)
-   ("C-c w m e" . emms)
-   ("C-c w m p" . emms-play-playlist )
-   ("<XF86AudioPrev>" . emms-previous)
-   ("<XF86AudioNext>" . emms-next)
-   ("<XF86AudioPlay>" . emms-pause)))
+;; (use-package emms
+;;   :config
+;;   (require 'emms-setup)
+;;   (require 'emms-mpris)
+;;   (emms-all)
+;;   (emms-default-players)
+;;   (emms-mpris-enable)
+;;   :custom
+;;   (emms-browser-covers #'emms-browser-cache-thumbnail-async)
+;;   :bind
+;;   (("C-c w m b" . emms-browser)
+;;    ("C-c w m e" . emms)
+;;    ("C-c w m p" . emms-play-playlist )
+;;    ("<XF86AudioPrev>" . emms-previous)
+;;    ("<XF86AudioNext>" . emms-next)
+;;    ("<XF86AudioPlay>" . emms-pause)))
