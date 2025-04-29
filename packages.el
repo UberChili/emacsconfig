@@ -65,11 +65,13 @@
 (package! org-roam)
 
 ;; Mpd stuff
+;; Will probably remove this
 (package! libmpdel)
 (package! mpdel)
 
 ;; Emms
-(package! emms)
+;; Will probably remove this
+;; (package! emms)
 
 ;; gptel
 (package! gptel :recipe (:nonrecursive t))
