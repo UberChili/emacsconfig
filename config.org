@@ -199,7 +199,7 @@ The following should make the clipboard work, I think
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 (fset #'jsonrpc--log-event #'ignore)
-(setq lsp-idle-delay 0.050)
+(setq lsp-idle-delay 0.040)
 #+end_src
 
 * Splash screen
@@ -301,4 +301,25 @@ The following should make the clipboard work, I think
 (let ((private-config (expand-file-name "private/org-gcal-credentials.el" doom-private-dir)))
   (when (file-exists-p private-config)
     (load private-config)))
+#+end_src
+
+* EMMS
+Minimal configuration for EMMS (Emacs Multimedia System)
+#+begin_src emacs-lisp
+(use-package emms
+  :config
+  (require 'emms-setup)
+  (require 'emms-mpris)
+  (emms-all)
+  (emms-default-players)
+  (emms-mpris-enable)
+  :custom
+  (emms-browser-covers #'emms-browser-cache-thumbnail-async)
+  :bind
+  (("C-c w m b" . emms-browser)
+   ("C-c w m e" . emms)
+   ("C-c w m p" . emms-play-playlist )
+   ("<XF86AudioPrev>" . emms-previous)
+   ("<XF86AudioNext>" . emms-next)
+   ("<XF86AudioPlay>" . emms-pause)))
 #+end_src
