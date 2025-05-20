@@ -304,22 +304,43 @@ The following should make the clipboard work, I think
 #+end_src
 
 * EMMS
-Minimal configuration for EMMS (Emacs Multimedia System)
+Configuring the Emacs Multi-Media System was quite laborsome, and I think I still am not completely satisfied with this configuration. However, at least now it properly displays the metadata of all my music files, and the media keys work.
+
+Most likely, I will still need to load the library on every boot though. Annoying.
 #+begin_src emacs-lisp
-(use-package emms
+(use-package! emms
+  :init
+  (setq emms-source-file-default-directory "/2tbhdd/Music/")
   :config
   (require 'emms-setup)
-  (require 'emms-mpris)
   (emms-all)
-  (emms-default-players)
+
+  ;; -------- Players --------
+  (setq emms-player-list '(emms-player-mpv))
+  (emms-player-set 'emms-player-mpv 'regex "m4a\\|mp4\\|mp3\\|flac\\'")
   (emms-mpris-enable)
-  :custom
-  (emms-browser-covers #'emms-browser-cache-thumbnail-async)
-  :bind
-  (("C-c w m b" . emms-browser)
-   ("C-c w m e" . emms)
-   ("C-c w m p" . emms-play-playlist )
-   ("<XF86AudioPrev>" . emms-previous)
-   ("<XF86AudioNext>" . emms-next)
-   ("<XF86AudioPlay>" . emms-pause)))
+
+  ;; -------- Directory / History --------
+  (require 'emms-history)
+  (emms-history-load)
+  (unless emms-playlist-buffer
+    (emms-add-directory-tree emms-source-file-default-directory))
+  (add-hook 'kill-emacs-hook #'emms-history-save)
+
+  ;; -------- Metadata --------
+  (require 'json)
+  (setq emms-info-functions '(emms-info-exiftool)
+        emms-info-asynchronously t)
+
+  ;; -------- Album art (optional) --------
+  (setq emms-browser-covers #'emms-browser-cache-thumbnail-async)
+
+  ;; -------- Keybindings --------
+  :bind (("C-c w m b" . emms-browser)
+         ("C-c w m e" . emms)
+         ("C-c w m p" . emms-play-playlist)
+         ("<AudioPrev>" . emms-previous)
+         ("<AudioNext>" . emms-next)
+         ("<AudioPlay>" . emms-pause)))
+
 #+end_src

@@ -211,3 +211,24 @@
 ;;    ("<XF86AudioPrev>" . emms-previous)
 ;;    ("<XF86AudioNext>" . emms-next)
 ;;    ("<XF86AudioPlay>" . emms-pause)))
+
+;; EMMS
+;; I have no idea why this has to be in here
+;; (use-package! emms
+;;   :config
+;;   (require 'emms-setup)
+;;   (require 'emms-mpris)
+;;   (require 'emms-history)
+;;   (require 'emms-info-tinytag)
+;;   (emms-all)
+;;   (emms-mpris-enable)
+;;   (setq emms-source-file-default-directory "/2tbhdd/Music/")
+;;   :custom
+;;   (emms-browser-covers #'emms-browser-cache-thumbnail-async)
+;;   :bind
+;;   (("C-c w m b" . emms-browser)
+;;    ("C-c w m e" . emms)
+;;    ("C-c w m p" . emms-play-playlist )
+;;    ("<XF86AudioPrev>" . emms-previous)
+;;    ("<XF86AudioNext>" . emms-next)
+;;    ("<XF86AudioPlay>" . emms-pause)))

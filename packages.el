@@ -64,10 +64,6 @@
 ;; Org Roam
 (package! org-roam)
 
-
-;; Emms
-(package! emms)
-
 ;; gptel
 (package! gptel :recipe (:nonrecursive t))
 
@@ -76,3 +72,4 @@
 
 ;; Circadian
 (package! circadian)
+
