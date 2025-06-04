@@ -178,6 +178,15 @@ The following should make the clipboard work, I think
         interprogram-paste-function (lambda ()
                                       (unless (and wl-copy-p (process-live-p wl-copy-p))
                                         (shell-command-to-string "wl-paste -n | tr -d '\r'")))))
+
+;; Adding this stuff to try and fix the clipboard on Hyprland
+(use-package! xclip
+  :config
+  (setq xclip-program "wl-copy")
+  (setq xclip-select-enable-clipboard t)
+  (setq xclip-mode t)
+  (setq xclip-method (quote wl-copy)))
+(setq xclip-select-enable-clipboard t)
 #+end_src
 
 * LSP
@@ -189,6 +198,7 @@ The following should make the clipboard work, I think
                                 "--clang-tidy"
                                 "--completion-style=detailed"
                                 "--header-insertion=never"
+                                "--compile-commands-dir=."
                                 "--header-insertion-decorators=0"))
 (after! lsp-clangd (set-lsp-priority! 'clangd 1))
 #+end_src
@@ -199,7 +209,7 @@ The following should make the clipboard work, I think
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 (fset #'jsonrpc--log-event #'ignore)
-(setq lsp-idle-delay 0.040)
+(setq lsp-idle-delay 0.020)
 #+end_src
 
 * Splash screen
