@@ -96,6 +96,11 @@ There is this new package I'm going to test. It automatically chances the theme 
 #+begin_src emacs-lisp
 (setq display-line-numbers-type 'relative)
 #+end_src
+* Line length config
+To configure the line length for autoformatting in Doom Emacs, you can adjust the fill-column variable, which determines the column at which lines are wrapped. Default seems to be 80.
+#+begin_src emacs-lisp
+(setq-default fill-column 120)
+#+end_src
 
 * Org config that came 'out of the box' with DOOM
 This is currently commented out:
@@ -197,9 +202,8 @@ The following should make the clipboard work, I think
                                 "--background-index"
                                 "--clang-tidy"
                                 "--completion-style=detailed"
-                                "--header-insertion=never"
-                                "--compile-commands-dir=."
-                                "--header-insertion-decorators=0"))
+                                ;; "--header-insertion=never"
+                                "--compile-commands-dir=." ))
 (after! lsp-clangd (set-lsp-priority! 'clangd 1))
 #+end_src
 
@@ -209,8 +213,21 @@ The following should make the clipboard work, I think
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 (fset #'jsonrpc--log-event #'ignore)
-(setq lsp-idle-delay 0.020)
+(setq lsp-idle-delay 0.010)
 #+end_src
+* editor: format
+** clang-format
+#+begin_src emacs-lisp
+(after! format
+  ;; Set clang-format options
+  (setq +format-with-lsp nil)  ; Use external clang-format instead of LSP
+
+  ;; Configure clang-format arguments
+  (set-formatter! 'clang-format
+    '("clang-format" "-style={BasedOnStyle: LLVM, SortIncludes: Never}")
+    :modes '(c-mode c++-mode objc-mode)))
+#+end_src
+
 
 * Splash screen
 #+begin_src emacs-lisp
