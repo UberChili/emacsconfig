@@ -72,3 +72,14 @@
 
 ;; Circadian
 (package! circadian)
+
+
+;; Odin
+;; This worked
+;; (package! odin-mode
+;;   :recipe (:host github :repo "mattt-b/odin-mode"))
+;; Henrik gave me this:
+(package! odin-mode
+  :recipe (:host sourcehut
+           :repo "mgmarlow/odin-mode")
+  :pin "5b017380561ebc4c4edefe4da9ba66be5d7de757")

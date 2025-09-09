@@ -211,6 +211,28 @@ The following should make the clipboard work, I think
 #+end_src
 
 ** Ols (Odin)
+#+begin_src emacs-lisp
+;; This worked:
+;; (after! lsp-mode
+;;   (lsp-register-client
+;;    (make-lsp-client
+;;     :new-connection (lsp-stdio-connection "ols")
+;;     :major-modes '(odin-mode odin-ts-mode)
+;;     :server-id 'ols)))
+
+;; ;; Add LSP to Odin mode hooks
+;; (after! odin-mode
+;;   (add-hook 'odin-mode-local-vars-hook #'lsp! 'append)
+;; (add-hook 'odin-ts-mode-local-vars-hook #'lsp! 'append)
+
+;; Henrik himself gave me this, will try:
+;; Henrik himself gave me this, will try:
+(use-package! odin-mode
+  :defer t
+  :config
+  (add-hook 'odin-mode-local-vars-hook #'lsp! 'append)
+  (add-hook 'odin-ts-mode-local-vars-hook #'lsp! 'append))
+#+end_src
 
 ** Optimizing a little
 [[https://emacs-lsp.github.io/lsp-mode/page/performance/][Source]]
@@ -330,9 +352,9 @@ The following should make the clipboard work, I think
 * Google calendar
 #+begin_src emacs-lisp
 ;; Call this lisp file from your config.el
-(let ((private-config (expand-file-name "private/org-gcal-credentials.el" doom-private-dir)))
-  (when (file-exists-p private-config)
-    (load private-config)))
+;; (let ((private-config (expand-file-name "private/org-gcal-credentials.el" doom-private-dir)))
+;;   (when (file-exists-p private-config)
+;;     (load private-config)))
 #+end_src
 
 * EMMS
