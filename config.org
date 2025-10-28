@@ -227,8 +227,16 @@ The following should make the clipboard work, I think
 
 ;; Henrik himself gave me this, will try:
 ;; Henrik himself gave me this, will try:
+;; (use-package! odin-mode
+;;   :defer t
+;;   :config
+;;   (add-hook 'odin-mode-local-vars-hook #'lsp! 'append)
+;;   (add-hook 'odin-ts-mode-local-vars-hook #'lsp! 'append))
+
+;; Testing:
 (use-package! odin-mode
   :defer t
+  :mode ("\\.odin\\'" . odin-mode)
   :config
   (add-hook 'odin-mode-local-vars-hook #'lsp! 'append)
   (add-hook 'odin-ts-mode-local-vars-hook #'lsp! 'append))
