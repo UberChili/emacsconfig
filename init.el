@@ -23,10 +23,17 @@
        :completion
        ;; company           ; the ultimate code completion backend
        (corfu +orderless +icons +dabbrev)  ; complete with cap(f), cape and a flying feather!
+<<<<<<< HEAD
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;;ivy               ; a search engine for love and life
        (vertico +icons)           ; the search engine of the future
+=======
+                                        ; (helm +fuzzy)              ; the *other* search engine for love and life
+       ;; ido               ; the other *other* search engine...
+       ;; (ivy + fuzzy + prescient)               ; a search engine for love and life
+       (vertico +orderless +icons)           ; the search engine of the future
+>>>>>>> f5813a3 (I forgot what I did, but things are working, I think)
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -96,7 +103,11 @@
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        lookup              ; navigate your code and its documentation
+<<<<<<< HEAD
        ( lsp +peek)               ; M-x vscode
+=======
+       (lsp +peek)               ; M-x vscode
+>>>>>>> f5813a3 (I forgot what I did, but things are working, I think)
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
