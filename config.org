@@ -1,5 +1,5 @@
 #+title:  DOOM Emacs configuration
-#+author: Andrés Núñez (rocco)
+#+author: Andrés Núñez
 #+STARTUP: showeverything
 #+PROPERTY: toc:2
 #+PROPERTY: header-args:emacs-lisp :tangle yes :results none
@@ -286,12 +286,24 @@ The following should make the clipboard work, I think
 ;; (org-roam-db-autosync-mode)
 #+end_src
 
+* Deft
+#+begin_src emacs-lisp
+(use-package deft
+  :after org
+  :bind
+  ("C-c n d" . deft)
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory org-roam-directory))
+#+end_src
+
 * Loading Lisp functions
 #+begin_src emacs-lisp
 ;; lip functions
 (load! "lisp/popup-dirvish-browser.el")
 #+end_src
-
 
 * Gptel (Might remove this)
 #+begin_src emacs-lisp
