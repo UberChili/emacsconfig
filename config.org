@@ -45,10 +45,12 @@ See 'C-h v doom-font' for documentation and more examples of what they accept.
 
 ;; It seems we can also use Iosevka Nerd Font Mono. And *I think* it looks better. Although the macOS config looks kinda too small so I'd keep the same font size I've been using on my Linux Desktop.
 (setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono"
-                           :size 16 :weight 'semi-light)
+                           ;; I think size 16 is comfy for macbook, use a little bigger on Desktop
+                           :size 18 :weight 'semi-light)
       ;; Recently, I decided to increase the font size by default on Linux, it was at 18 before, I'll try how it feels at 20 for some days
       doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font Mono"
-                                          :size 16 ))
+                                          ;; 16 for macbook
+                                          :size 17 ))
 
 ;; on macOS we need a slightly smaller font (I should still try to see how the config above works)
 ;; The config that I always used on macOS is the following:

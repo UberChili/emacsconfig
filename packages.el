@@ -60,6 +60,7 @@
 (package! catppuccin-theme)
 (package! gruber-darker-theme)
 (package! spacemacs-theme)
+(package! naysayer-theme)
 
 ;; Org Roam
 (package! org-roam)
