@@ -84,3 +84,7 @@
   :recipe (:host sourcehut
            :repo "mgmarlow/odin-mode")
   :pin "5b017380561ebc4c4edefe4da9ba66be5d7de757")
+
+;; Olivetti
+;; For a nice writing environment
+(package! olivetti)
