@@ -50,7 +50,9 @@ See 'C-h v doom-font' for documentation and more examples of what they accept.
       ;; Recently, I decided to increase the font size by default on Linux, it was at 18 before, I'll try how it feels at 20 for some days
       doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font Mono"
                                           ;; 16 for macbook
-                                          :size 17 ))
+                                          :size 17 )
+      doom-big-font (font-spec :family "IosevkaTerm Nerd Font Mono"
+                               :size 25))
 
 ;; on macOS we need a slightly smaller font (I should still try to see how the config above works)
 ;; The config that I always used on macOS is the following:
