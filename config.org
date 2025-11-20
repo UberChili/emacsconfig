@@ -290,8 +290,10 @@ The following should make the clipboard work, I think
   ;; UI tweaks
   (setq org-hide-emphasis-markers t)
   (setq org-agenda-prefix-format " %?-12t% s")
+  ;; Images
+  (setq org-startup-with-inline-images t)
   (setq org-image-actual-width t)
-  (setq org-image-max-width 400)
+  (setq org-image-max-width 500)
 
   ;; Roam buffer sections
   (setq org-roam-mode-sections
