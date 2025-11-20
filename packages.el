@@ -64,6 +64,7 @@
 
 ;; Org Roam
 (package! org-roam)
+(package! org-modern)
 
 ;; gptel
 (package! gptel :recipe (:nonrecursive t))

@@ -276,17 +276,40 @@ The following should make the clipboard work, I think
 
 * Org-Roam
 #+begin_src emacs-lisp
+;; ------------------------------
+;; Org + Org-roam Configuration
+;; ------------------------------
 (after! org
+  ;; Org-roam settings
   (setq org-roam-directory "~/Notes/roam")
   (setq org-roam-index-file "~/Notes/inbox.org")
   (org-roam-db-autosync-mode)
+
+  ;; UI tweaks
   (setq org-hide-emphasis-markers t)
-  (setq org-agenda-prefix-format " %?-12t% s"))
-(setq org-agenda-files (directory-files-recursively "~/Notes" "\\.org$"))
-(setq org-agenda-files '("~/Notes/"
-                         "~/Notes/daily/"))
-;; (setq org-agenda-prefix-format " %?-12t% s")
-;; (org-roam-db-autosync-mode)
+  (setq org-agenda-prefix-format " %?-12t% s")
+
+  ;; Roam buffer sections
+  (setq org-roam-mode-sections
+        (list #'org-roam-backlinks-section
+              #'org-roam-reflinks-section
+              ;; #'org-roam-unlinked-references-section
+              ))
+
+  ;; Display behavior of the org-roam buffer
+  (add-to-list 'display-buffer-alist
+               '("\\*org-roam\\*"
+                 (display-buffer-in-direction)
+                 (direction . right)
+                 (window-width . 0.33)
+                 (window-height . fit-window-to-buffer))))
+
+;; -----------------------
+;; Org agenda files
+;; -----------------------
+(setq org-agenda-files
+      '("~/Notes/"
+        "~/Notes/daily/"))
 #+end_src
 
 * Deft

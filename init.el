@@ -96,11 +96,7 @@
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        lookup              ; navigate your code and its documentation
-       <<<<<<< HEAD
-       ( lsp +peek)               ; M-x vscode
-       =======
        (lsp +peek)               ; M-x vscode
-       >>>>>>> f5813a3 (I forgot what I did, but things are working, I think)
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -157,12 +153,12 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +roam +hugo +pretty +dragndrop)               ; organize your plain life in plain text
+       (org +roam +modern +hugo +pretty +dragndrop)               ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;graphviz          ; diagrams for confusing yourself even more
        ;;purescript        ; javascript, but functional
-       ; python            ; beautiful is better than ugly
+       ;; python            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
@@ -179,7 +175,7 @@
        ;;terra             ; Earth and Moon in alignment for performance.
        ;;web               ; the tubes
        yaml              ; JSON, but readable
-       ; (zig +lsp)               ; C, but simpler
+                                        ; (zig +lsp)               ; C, but simpler
 
        :email
        ;;(mu4e +org +gmail)
@@ -188,7 +184,7 @@
 
        :app
        calendar
-       emms
+       ;; emms
        ;;everywhere        ; *leave* Emacs!? You must be joking
        irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
