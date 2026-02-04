@@ -205,14 +205,19 @@ The following should make the clipboard work, I think
 * LSP
 ** Clangd
 #+begin_src emacs-lisp
-;; (setq lsp-clients-clangd-args '("j=3"
-(setq lsp-clients-clangd-args '(
+;; (setq lsp-clients-clangd-args '(
+(setq lsp-clients-clangd-args '("-j=4"
                                 "--background-index"
                                 "--clang-tidy"
                                 "--completion-style=detailed"
                                 ;; "--header-insertion=never"
                                 "--compile-commands-dir=." ))
 (after! lsp-clangd (set-lsp-priority! 'clangd 1))
+
+; This makes save on format use clang-format and acts accordingly to the .clang-format file on
+; the project's root directory
+(add-hook 'c-mode-hook #'(lambda ()
+                           (add-hook 'before-save-hook 'clang-format-buffer nil 'local)))
 #+end_src
 
 ** Ols (Odin)
