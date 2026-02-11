@@ -121,7 +121,7 @@ change org-directory'. It must be set before org loads!
 Setting a sound for the pomodoro timer
 #+begin_src emacs-lisp
 (setq org-clock-sound (concat doom-user-dir "assets/sound.au"))
-(setq org-directory "~/Notes/")
+(setq org-directory "~/Nextcloud/Notes/")
 #+end_src
 
 * Export to Hugo
