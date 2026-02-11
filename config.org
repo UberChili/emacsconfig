@@ -114,7 +114,7 @@ This is currently commented out:
 
 If you use org' and don't want your org files in the default location below,
 change org-directory'. It must be set before org loads!
-(setq org-directory "~/Notes/")
+(setq org-directory "~/Nextcloud/Notes/")
 (setq org-agenda-files (directory-files-recursively "~/Notes/" "\\.org$"))
 
 * Additional Org config
