@@ -288,8 +288,8 @@ The following should make the clipboard work, I think
 ;; ------------------------------
 (after! org
   ;; Org-roam settings
-  (setq org-roam-directory "~/Notes/roam")
-  (setq org-roam-index-file "~/Notes/inbox.org")
+  (setq org-roam-directory "~/Nextcloud/Notes/roam")
+  (setq org-roam-index-file "~/Nextcloud/Notes/inbox.org")
   (org-roam-db-autosync-mode)
 
   ;; UI tweaks
@@ -319,8 +319,8 @@ The following should make the clipboard work, I think
 ;; Org agenda files
 ;; -----------------------
 (setq org-agenda-files
-      '("~/Notes/"
-        "~/Notes/daily/"))
+      '("~/Nextcloud/Notes/"
+        "~/Nextcloud/Notes/daily/"))
 #+end_src
 
 * Deft
