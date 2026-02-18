@@ -291,6 +291,15 @@ The following should make the clipboard work, I think
   (setq org-roam-directory "~/Nextcloud/Notes/roam")
   (setq org-roam-index-file "~/Nextcloud/Notes/inbox.org")
   (org-roam-db-autosync-mode)
+  
+  ;; Override the configuration for the default filename of new nodes
+  ;; (Now it doesn't use the fucking full id on filename)
+  (setq org-roam-capture-templates
+        '(("d" "default" plain
+           "%?"
+           :if-new (file+head "${slug}.org"
+                              "#+title: ${title}\n")
+           :unnarrowed t)))
 
   ;; UI tweaks
   (setq org-hide-emphasis-markers t)
