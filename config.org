@@ -221,35 +221,24 @@ The following should make the clipboard work, I think
 #+end_src
 
 ** Ols (Odin)
+I include here what is/was currently working, *BEFORE* trying Eglot out. That is, what is working for Odin as an lsp-mode user.
+Then, the next block will be what I will try with Eglot.
+
+I recently deleted a bunch of commented-out code that I didn't even needed anymore for a decent amount of weeks. Hopefully I won't need it again. Just in the same fashion, I will likely delete this line later.
 #+begin_src emacs-lisp
-;; This worked:
-;; (after! lsp-mode
-;;   (lsp-register-client
-;;    (make-lsp-client
-;;     :new-connection (lsp-stdio-connection "ols")
-;;     :major-modes '(odin-mode odin-ts-mode)
-;;     :server-id 'ols)))
-
-;; ;; Add LSP to Odin mode hooks
-;; (after! odin-mode
-;;   (add-hook 'odin-mode-local-vars-hook #'lsp! 'append)
-;; (add-hook 'odin-ts-mode-local-vars-hook #'lsp! 'append)
-
-;; Henrik himself gave me this, will try:
-;; Henrik himself gave me this, will try:
 ;; (use-package! odin-mode
 ;;   :defer t
+;;   :mode ("\\.odin\\'" . odin-mode)
 ;;   :config
 ;;   (add-hook 'odin-mode-local-vars-hook #'lsp! 'append)
 ;;   (add-hook 'odin-ts-mode-local-vars-hook #'lsp! 'append))
 
-;; Testing:
 (use-package! odin-mode
   :defer t
   :mode ("\\.odin\\'" . odin-mode)
   :config
-  (add-hook 'odin-mode-local-vars-hook #'lsp! 'append)
-  (add-hook 'odin-ts-mode-local-vars-hook #'lsp! 'append))
+  (add-hook 'odin-mode-local-vars-hook #'eglot-ensure 'append)
+  (add-hook 'odin-ts-mode-local-vars-hook #'eglot-ensure 'append))
 #+end_src
 
 ** Optimizing a little
