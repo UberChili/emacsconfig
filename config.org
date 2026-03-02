@@ -423,6 +423,13 @@ The following should make the clipboard work, I think
 ;;     (load private-config)))
 #+end_src
 
+* Hledger
+Doom Emacs, or Emacs, I don't know, use ledger by default. Use the following to make Doom Emacs use hledger instead.
+#+begin_src emacs-lisp
+(after! ledger-mode
+  (setq ledger-binary-path "hledger"
+        ledger-report-links-in-register nil))
+#+end_src
 * EMMS
 Configuring the Emacs Multi-Media System was quite laborsome, and I think I still am not completely satisfied with this configuration. However, at least now it properly displays the metadata of all my music files, and the media keys work.
 
