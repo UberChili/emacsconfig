@@ -75,7 +75,6 @@
 ;; Circadian
 (package! circadian)
 
-
 ;; Odin
 ;; This worked
 ;; (package! odin-mode
@@ -89,3 +88,8 @@
 ;; Olivetti
 ;; For a nice writing environment
 (package! olivetti)
+
+;; md-roam
+(package! md-roam
+  :recipe (:host github
+           :repo "nobiot/md-roam"))

@@ -204,20 +204,23 @@ The following should make the clipboard work, I think
 
 * LSP
 ** Clangd
+Same shit as with Odin... Will comment out the first block which was "working" with lsp-mode and will try out Eglot in the second uncommented block. Let's see what happens.
 #+begin_src emacs-lisp
-;; (setq lsp-clients-clangd-args '(
-(setq lsp-clients-clangd-args '("-j=4"
-                                "--background-index"
-                                "--clang-tidy"
-                                "--completion-style=detailed"
-                                ;; "--header-insertion=never"
-                                "--compile-commands-dir=." ))
-(after! lsp-clangd (set-lsp-priority! 'clangd 1))
+;; (setq lsp-clients-clangd-args '("-j=4"
+;;                                 "--background-index"
+;;                                 "--clang-tidy"
+;;                                 "--completion-style=detailed"
+;;                                 ;; "--header-insertion=never"
+;;                                 "--compile-commands-dir=." ))
+;; (after! lsp-clangd (set-lsp-priority! 'clangd 1))
 
-; This makes save on format use clang-format and acts accordingly to the .clang-format file on
-; the project's root directory
-(add-hook 'c-mode-hook #'(lambda ()
-                           (add-hook 'before-save-hook 'clang-format-buffer nil 'local)))
+;; ; This makes save on format use clang-format and acts accordingly to the .clang-format file on
+;; ; the project's root directory
+;; (add-hook 'c-mode-hook #'(lambda ()
+;;                            (add-hook 'before-save-hook 'clang-format-buffer nil 'local)))
+
+;; Using Eglot
+(set-eglot-client! 'cc-mode '("clangd" "-j=3" "--clang-tidy"))
 #+end_src
 
 ** Ols (Odin)
@@ -271,54 +274,83 @@ I recently deleted a bunch of commented-out code that I didn't even needed anymo
 #+end_src
 
 * Org-Roam
+Need to be very careful with this if I'll be playing around with md-roam. I better coment out this entire next src block and add a new one. Remember, this worked correctly.
 #+begin_src emacs-lisp
 ;; ------------------------------
 ;; Org + Org-roam Configuration
 ;; ------------------------------
-(after! org
-  ;; Org-roam settings
-  (setq org-roam-directory "~/Nextcloud/Notes/roam")
-  (setq org-roam-index-file "~/Nextcloud/Notes/inbox.org")
-  (org-roam-db-autosync-mode)
+;; (after! org
+;;   ;; Org-roam settings
+;;   (setq org-roam-directory "~/Nextcloud/Notes/roam")
+;;   (setq org-roam-index-file "~/Nextcloud/Notes/inbox.org")
+;;   (org-roam-db-autosync-mode)
   
-  ;; Override the configuration for the default filename of new nodes
-  ;; (Now it doesn't use the fucking full id on filename)
-  (setq org-roam-capture-templates
-        '(("d" "default" plain
-           "%?"
-           :if-new (file+head "${slug}.org"
-                              "#+title: ${title}\n")
-           :unnarrowed t)))
+;;   ;; Override the configuration for the default filename of new nodes
+;;   ;; (Now it doesn't use the fucking full id on filename)
+;;   (setq org-roam-capture-templates
+;;         '(("d" "default" plain
+;;            "%?"
+;;            :if-new (file+head "${slug}.org"
+;;                               "#+title: ${title}\n")
+;;            :unnarrowed t)))
 
-  ;; UI tweaks
-  (setq org-hide-emphasis-markers t)
-  (setq org-agenda-prefix-format " %?-12t% s")
-  ;; Images
-  (setq org-startup-with-inline-images t)
-  (setq org-image-actual-width '(400))
+;;   ;; UI tweaks
+;;   (setq org-hide-emphasis-markers t)
+;;   (setq org-agenda-prefix-format " %?-12t% s")
+;;   ;; Images
+;;   (setq org-startup-with-inline-images t)
+;;   (setq org-image-actual-width '(400))
 
 
-  ;; Roam buffer sections
-  (setq org-roam-mode-sections
-        (list #'org-roam-backlinks-section
-              #'org-roam-reflinks-section
-              ;; #'org-roam-unlinked-references-section
-              ))
+;;   ;; Roam buffer sections
+;;   (setq org-roam-mode-sections
+;;         (list #'org-roam-backlinks-section
+;;               #'org-roam-reflinks-section
+;;               ;; #'org-roam-unlinked-references-section
+;;               ))
 
-  ;; Display behavior of the org-roam buffer
-  (add-to-list 'display-buffer-alist
-               '("\\*org-roam\\*"
-                 (display-buffer-in-direction)
-                 (direction . right)
-                 (window-width . 0.33)
-                 (window-height . fit-window-to-buffer))))
+;;   ;; Display behavior of the org-roam buffer
+;;   (add-to-list 'display-buffer-alist
+;;                '("\\*org-roam\\*"
+;;                  (display-buffer-in-direction)
+;;                  (direction . right)
+;;                  (window-width . 0.33)
+;;                  (window-height . fit-window-to-buffer))))
 
-;; -----------------------
-;; Org agenda files
-;; -----------------------
-(setq org-agenda-files
-      '("~/Nextcloud/Notes/"
-        "~/Nextcloud/Notes/daily/"))
+;; ;; -----------------------
+;; ;; Org agenda files
+;; ;; -----------------------
+;; (setq org-agenda-files
+;;       '("~/Nextcloud/Notes/"
+;;         "~/Nextcloud/Notes/daily/"))
+#+end_src
+
+#+begin_src emacs-lisp
+;; (after! md-roam
+;;   (md-roam-mode 1)
+;;   (org-roam-db-autosync-mode 1)
+;; )
+
+(add-hook! markdown-mode 
+    (setq md-roam-file-extension "md")
+    (md-roam-mode 1)
+)
+
+(setq org-roam-directory (file-truename "~/Nextcloud/Vault/"))
+(setq org-roam-file-extensions '("org" "md"))
+(org-roam-db-autosync-mode 1)
+
+;; (setq org-roam-directory (file-truename "~/Nextcloud/Vault/"))
+;; (setq org-roam-file-extensions '("org" "md"))
+;; (setq md-roam-file-extension "md")
+;; (org-roam-db-autosync-mode 1)
+
+;; (after! org-roam
+;;   (setq org-roam-directory (file-truename "~/Nextcloud/Vault/"))
+;;   (setq org-roam-file-extensions '("org" "md"))
+;;   ;; (add-to-list 'load-path "~/Nextcloud/Vault") ;; This is probably not needed
+;;   (org-roam-db-autosync-mode 1)
+;; )
 #+end_src
 
 * Deft
@@ -423,40 +455,42 @@ Doom Emacs, or Emacs, I don't know, use ledger by default. Use the following to 
 Configuring the Emacs Multi-Media System was quite laborsome, and I think I still am not completely satisfied with this configuration. However, at least now it properly displays the metadata of all my music files, and the media keys work.
 
 Most likely, I will still need to load the library on every boot though. Annoying.
+
+No, most likely I will just remove all this shit later.
 #+begin_src emacs-lisp
-(use-package! emms
-  :init
-  (setq emms-source-file-default-directory "/2tbhdd/Music/")
-  :config
-  (require 'emms-setup)
-  (emms-all)
+;; (use-package! emms
+;;   :init
+;;   (setq emms-source-file-default-directory "/2tbhdd/Music/")
+;;   :config
+;;   (require 'emms-setup)
+;;   (emms-all)
 
-  ;; -------- Players --------
-  (setq emms-player-list '(emms-player-mpv))
-  (emms-player-set 'emms-player-mpv 'regex "m4a\\|mp4\\|mp3\\|flac\\'")
-  (emms-mpris-enable)
+;;   ;; -------- Players --------
+;;   (setq emms-player-list '(emms-player-mpv))
+;;   (emms-player-set 'emms-player-mpv 'regex "m4a\\|mp4\\|mp3\\|flac\\'")
+;;   (emms-mpris-enable)
 
-  ;; -------- Directory / History --------
-  (require 'emms-history)
-  (emms-history-load)
-  (unless emms-playlist-buffer
-    (emms-add-directory-tree emms-source-file-default-directory))
-  (add-hook 'kill-emacs-hook #'emms-history-save)
+;;   ;; -------- Directory / History --------
+;;   (require 'emms-history)
+;;   (emms-history-load)
+;;   (unless emms-playlist-buffer
+;;     (emms-add-directory-tree emms-source-file-default-directory))
+;;   (add-hook 'kill-emacs-hook #'emms-history-save)
 
-  ;; -------- Metadata --------
-  (require 'json)
-  (setq emms-info-functions '(emms-info-exiftool)
-        emms-info-asynchronously t)
+;;   ;; -------- Metadata --------
+;;   (require 'json)
+;;   (setq emms-info-functions '(emms-info-exiftool)
+;;         emms-info-asynchronously t)
 
-  ;; -------- Album art (optional) --------
-  (setq emms-browser-covers #'emms-browser-cache-thumbnail-async)
+;;   ;; -------- Album art (optional) --------
+;;   (setq emms-browser-covers #'emms-browser-cache-thumbnail-async)
 
-  ;; -------- Keybindings --------
-  :bind (("C-c w m b" . emms-browser)
-         ("C-c w m e" . emms)
-         ("C-c w m p" . emms-play-playlist)
-         ("<AudioPrev>" . emms-previous)
-         ("<AudioNext>" . emms-next)
-         ("<AudioPlay>" . emms-pause)))
+;;   ;; -------- Keybindings --------
+;;   :bind (("C-c w m b" . emms-browser)
+;;          ("C-c w m e" . emms)
+;;          ("C-c w m p" . emms-play-playlist)
+;;          ("<AudioPrev>" . emms-previous)
+;;          ("<AudioNext>" . emms-next)
+;;          ("<AudioPlay>" . emms-pause)))
 
 #+end_src
