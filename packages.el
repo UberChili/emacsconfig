@@ -65,6 +65,7 @@
 ;; Org Roam
 (package! org-roam)
 (package! org-modern)
+(package! org-roam-ui)
 
 ;; gptel
 (package! gptel :recipe (:nonrecursive t))
@@ -88,8 +89,3 @@
 ;; Olivetti
 ;; For a nice writing environment
 (package! olivetti)
-
-;; md-roam
-(package! md-roam
-  :recipe (:host github
-           :repo "nobiot/md-roam"))
