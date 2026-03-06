@@ -67,6 +67,10 @@
 (package! org-modern)
 (package! org-roam-ui)
 
+;; Hledger
+;; (package! hledger-mode)
+(package! ledger-mode)
+
 ;; gptel
 (package! gptel :recipe (:nonrecursive t))
 

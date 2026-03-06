@@ -435,11 +435,31 @@ Need to be very careful with this if I'll be playing around with md-roam. I bett
 
 * Hledger
 Doom Emacs, or Emacs, I don't know, use ledger by default. Use the following to make Doom Emacs use hledger instead.
+
+The following block was to make Emacs use hledger instead of ledger, I think it is not very useful at all actually. So I'll try commenting it out and try hledger-mode instead. So if that works out, I will come back and delete this.
 #+begin_src emacs-lisp
 (after! ledger-mode
   (setq ledger-binary-path "hledger"
-        ledger-report-links-in-register nil))
+        ledger-mode-should-use-period-as-decimal-point t
+        ledger-report-links-in-register nil
+        ledger-default-date-format "%Y-%m-%d"))
 #+end_src
+
+In the following block, we are actually configuring hledger-mode (already installed via packages.el)
+
+** Update
+Ugh, turns out hledger-mode is mostly abandoned, while ledger-mode is actively mantained, the latest update being only 6 months ago.
+So now I will comment out hledger-mode and try to just familiarize myself with ledger-mode
+#+begin_src emacs-lisp
+;;; Basic configuration
+;; (use-package! hledger-mode
+;;   :mode ("\\.journal\\'". hledger-mode)
+;;   :config
+;;   (setq hledger-jfile "~/Nextcloud/Notes/finances.journal")
+;;   (define-key hledger-mode-map (kbd "<kp-add>") 'hledger-increment-entry-date)
+;;   (define-key hledger-mode-map (kbd "<kp-subtract>") 'hledger-decrement-entry-date))
+#+end_src
+
 * EMMS
 Configuring the Emacs Multi-Media System was quite laborsome, and I think I still am not completely satisfied with this configuration. However, at least now it properly displays the metadata of all my music files, and the media keys work.
 
