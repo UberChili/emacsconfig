@@ -61,6 +61,8 @@
 (package! gruber-darker-theme)
 (package! spacemacs-theme)
 (package! naysayer-theme)
+(package! everforest
+  :recipe (:repo "https://github.com/Theory-of-Everything/everforest-emacs.git"))
 
 ;; Org Roam
 (package! org-roam)
