@@ -91,3 +91,8 @@
 ;; Olivetti
 ;; For a nice writing environment
 (package! olivetti)
+
+;; LLM's
+;;--------
+;; Ellama
+(package! ellama)
