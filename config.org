@@ -187,25 +187,25 @@ I don't ven remember what this is
 The following should make the clipboard work, I think
 
 #+begin_src emacs-lisp
-(when (getenv "WAYLAND_DISPLAY")
-  (setq wl-copy-p nil
-        interprogram-cut-function (lambda (text)
-                                    (setq-local process-connection-type 'pipe)
-                                    (setq wl-copy-p (start-process "wl-copy" nil "wl-copy" "-f" "-n"))
-                                    (process-send-string wl-copy-p text)
-                                    (process-send-eof wl-copy-p))
-        interprogram-paste-function (lambda ()
-                                      (unless (and wl-copy-p (process-live-p wl-copy-p))
-                                        (shell-command-to-string "wl-paste -n | tr -d '\r'")))))
+;; (when (getenv "WAYLAND_DISPLAY")
+;;   (setq wl-copy-p nil
+;;         interprogram-cut-function (lambda (text)
+;;                                     (setq-local process-connection-type 'pipe)
+;;                                     (setq wl-copy-p (start-process "wl-copy" nil "wl-copy" "-f" "-n"))
+;;                                     (process-send-string wl-copy-p text)
+;;                                     (process-send-eof wl-copy-p))
+;;         interprogram-paste-function (lambda ()
+;;                                       (unless (and wl-copy-p (process-live-p wl-copy-p))
+;;                                         (shell-command-to-string "wl-paste -n | tr -d '\r'")))))
 
-;; Adding this stuff to try and fix the clipboard on Hyprland
-(use-package! xclip
-  :config
-  (setq xclip-program "wl-copy")
-  (setq xclip-select-enable-clipboard t)
-  (setq xclip-mode t)
-  (setq xclip-method (quote wl-copy)))
-(setq xclip-select-enable-clipboard t)
+;; ;; Adding this stuff to try and fix the clipboard on Hyprland
+;; (use-package! xclip
+;;   :config
+;;   (setq xclip-program "wl-copy")
+;;   (setq xclip-select-enable-clipboard t)
+;;   (setq xclip-mode t)
+;;   (setq xclip-method (quote wl-copy)))
+;; (setq xclip-select-enable-clipboard t)
 #+end_src
 
 * LSP
@@ -388,22 +388,22 @@ Need to be very careful with this if I'll be playing around with md-roam. I bett
 (after! org
 (setq org-capture-templates
       '(("t" "Todo" entry
-         (file+headline "~/Notes/inbox.org" "Inbox")
+         (file+headline "~/Nextcloud/Notes/inbox.org" "Inbox")
          "* TODO %^{Task}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
         ("e" "Event" entry
-         (file+headline "~/Notes/calendar.org" "Events")
+         (file+headline "~/Nextcloud/Notes/calendar.org" "Events")
          "* %^{Event}\n%^{SCHEDULED}T\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:CONTACT: %(org-capture-ref-link \"~/Notes/contacts.org\")\n:END:\n%?")
         ("d" "Deadline" entry
-         (file+headline "~/Notes/calendar.org" "Deadlines")
+         (file+headline "~/Nextcloud/Notes/calendar.org" "Deadlines")
          "* TODO %^{Task}\nDEADLINE: %^{Deadline}T\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
         ("p" "Project" entry
-         (file+headline "~/Notes/projects.org" "Projects")
+         (file+headline "~/Nextcloud/Notes/projects.org" "Projects")
          "* PROJ %^{Project name}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n** TODO %?")
         ("i" "Idea" entry
-         (file+headline "~/Notes/ideas.org" "Ideas")
+         (file+headline "~/Nextcloud/Notes/ideas.org" "Ideas")
          "** IDEA %^{Idea}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
         ("c" "Contact" entry
-         (file+headline "~/Notes/contacts.org" "Inbox")
+         (file+headline "~/Nextcloud/Notes/contacts.org" "Inbox")
          "* %^{Name}
 
 :PROPERTIES:
