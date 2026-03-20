@@ -294,11 +294,18 @@ Need to be very careful with this if I'll be playing around with md-roam. I bett
 ;; ------------------------------
 ;; Org + Org-roam Configuration
 ;; ------------------------------
+
 (after! org
-  ;; Org-roam settings
+  ;; UI tweaks for Org mode
+  (setq org-hide-emphasis-markers t)
+  (setq org-agenda-prefix-format " %?-12t% s")
+  ;; Images
+  (setq org-startup-with-inline-images t)
+  (setq org-image-actual-width '(400)))
+
+(after! org-roam
   (setq org-roam-directory "~/Nextcloud/Notes/roam")
   (setq org-roam-index-file "~/Nextcloud/Notes/inbox.org")
-  (org-roam-db-autosync-mode)
   
   ;; Override the configuration for the default filename of new nodes
   ;; (Now it doesn't use the fucking full id on filename)
@@ -308,14 +315,6 @@ Need to be very careful with this if I'll be playing around with md-roam. I bett
            :if-new (file+head "${slug}.org"
                               "#+title: ${title}\n")
            :unnarrowed t)))
-
-  ;; UI tweaks
-  (setq org-hide-emphasis-markers t)
-  (setq org-agenda-prefix-format " %?-12t% s")
-  ;; Images
-  (setq org-startup-with-inline-images t)
-  (setq org-image-actual-width '(400))
-
 
   ;; Roam buffer sections
   (setq org-roam-mode-sections
@@ -327,12 +326,17 @@ Need to be very careful with this if I'll be playing around with md-roam. I bett
   ;; Display behavior of the org-roam buffer
   (add-to-list 'display-buffer-alist
                '("\\*org-roam\\*"
-                 (display-buffer-in-direction)
-                 (direction . right)
-                 (window-width . 0.33)
-                 (window-height . fit-window-to-buffer))))
+                 ;; (display-buffer-in-direction)
+                 ;; (direction . right)
+                 (display-buffer-in-side-window)
+                 (side . right)
+                 (slot . 0)
+                 (window-width . 0.2)
+                 (window-parameters . ((no-other-window . t)
+                                       (no-delete-other-windows . t)))))
+  
+  (org-roam-db-autosync-mode))
 
-;; -----------------------
 ;; Org agenda files
 ;; -----------------------
 (setq org-agenda-files
