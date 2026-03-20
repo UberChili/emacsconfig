@@ -392,7 +392,7 @@ Need to be very careful with this if I'll be playing around with md-roam. I bett
          "* TODO %^{Task}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
         ("e" "Event" entry
          (file+headline "~/Nextcloud/Notes/calendar.org" "Events")
-         "* %^{Event}\n%^{SCHEDULED}T\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:CONTACT: %(org-capture-ref-link \"~/Notes/contacts.org\")\n:END:\n%?")
+         "* %^{Event}\n%^{SCHEDULED}T\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:CONTACT: %(org-capture-ref-link \"~/Nextcloud/Notes/contacts.org\")\n:END:\n%?")
         ("d" "Deadline" entry
          (file+headline "~/Nextcloud/Notes/calendar.org" "Deadlines")
          "* TODO %^{Task}\nDEADLINE: %^{Deadline}T\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
@@ -419,7 +419,7 @@ Need to be very careful with this if I'll be playing around with md-roam. I bett
 \\ *** Notes
 %?")
         ("n" "Note" entry
-         (file+headline "~/Notes/notes.org" "Inbox")
+         (file+headline "~/Nextcloud/Notes/notes.org" "Inbox")
          "* [%<%Y-%m-%d %a>] %^{Title}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?"
          :prepend t)))
 
