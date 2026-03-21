@@ -331,7 +331,7 @@ Need to be very careful with this if I'll be playing around with md-roam. I bett
                  (display-buffer-in-side-window)
                  (side . right)
                  (slot . 0)
-                 (window-width . 0.2)
+                 (window-width . 0.16)
                  (window-parameters . ((no-other-window . t)
                                        (no-delete-other-windows . t)))))
   
