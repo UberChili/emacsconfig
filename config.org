@@ -339,9 +339,11 @@ Need to be very careful with this if I'll be playing around with md-roam. I bett
 
 ;; Org agenda files
 ;; -----------------------
+;; (setq org-agenda-files
+;;       '("~/Nextcloud/Notes/"
+;;         "~/Nextcloud/Notes/daily/"))
 (setq org-agenda-files
-      '("~/Nextcloud/Notes/"
-        "~/Nextcloud/Notes/daily/"))
+      (directory-files-recursively "~/Nextcloud/Notes/" "\\.org$"))
 #+end_src
 * Org-Roam-ui
 #+begin_src emacs-lisp
