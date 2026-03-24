@@ -63,10 +63,11 @@
 (package! naysayer-theme)
 (package! base16-theme)
 
-;; Org Roam
+;; Org and Org-Roam
 (package! org-roam)
 (package! org-modern)
 (package! org-roam-ui)
+(package! org-download)
 
 ;; Hledger
 ;; (package! hledger-mode)

@@ -288,7 +288,7 @@ This is the correct code for now:
   (insert "\n" (+doom-dashboard--center +doom-dashboard--width "")))
 #+end_src
 
-* Org-Roam
+* Org and Org-Roam
 Need to be very careful with this if I'll be playing around with md-roam. I better coment out this entire next src block and add a new one. Remember, this worked correctly.
 #+begin_src emacs-lisp
 ;; ------------------------------
@@ -314,7 +314,12 @@ Need to be very careful with this if I'll be playing around with md-roam. I bett
            "%?"
            :if-new (file+head "${slug}.org"
                               "#+title: ${title}\n")
-           :unnarrowed t)))
+           :unnarrowed t)
+        ("s" "source material" plain
+         "%?"
+         :if-new (file+head "source-material/${slug}.org"
+                            "#+title: ${title}\n#+filetags: :source:\n")
+         :unnarrowed t)))
 
   ;; Roam buffer sections
   (setq org-roam-mode-sections
@@ -345,6 +350,11 @@ Need to be very careful with this if I'll be playing around with md-roam. I bett
 (setq org-agenda-files
       (directory-files-recursively "~/Nextcloud/Notes/" "\\.org$"))
 #+end_src
+
+* Org-Download
+#+begin_src emacs-lisp
+#+end_src
+
 * Org-Roam-ui
 #+begin_src emacs-lisp
 (use-package! websocket
@@ -389,7 +399,7 @@ Need to be very careful with this if I'll be playing around with md-roam. I bett
   (setq! gptel-api-key (getenv "openai_key")))
 #+end_src
 
-* Capture templates (Copied from Joshua Blais. Thanks)
+* Org-mode capture templates (Copied from Joshua Blais. Thanks)
 #+begin_src emacs-lisp
 (after! org
 (setq org-capture-templates
