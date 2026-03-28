@@ -226,7 +226,7 @@ Same shit as with Odin... Will comment out the first block which was "working" w
 ;;                            (add-hook 'before-save-hook 'clang-format-buffer nil 'local)))
 
 ;; Using Eglot
-(set-eglot-client! 'cc-mode '("clangd" "-j=3" "--clang-tidy"))
+;; (set-eglot-client! 'cc-mode '("clangd" "-j=3" "--clang-tidy"))
 #+end_src
 
 ** Ols (Odin)
@@ -235,19 +235,19 @@ Then, the next block will be what I will try with Eglot.
 
 I recently deleted a bunch of commented-out code that I didn't even needed anymore for a decent amount of weeks. Hopefully I won't need it again. Just in the same fashion, I will likely delete this line later.
 #+begin_src emacs-lisp
-;; (use-package! odin-mode
-;;   :defer t
-;;   :mode ("\\.odin\\'" . odin-mode)
-;;   :config
-;;   (add-hook 'odin-mode-local-vars-hook #'lsp! 'append)
-;;   (add-hook 'odin-ts-mode-local-vars-hook #'lsp! 'append))
-
 (use-package! odin-mode
   :defer t
   :mode ("\\.odin\\'" . odin-mode)
   :config
-  (add-hook 'odin-mode-local-vars-hook #'eglot-ensure 'append)
-  (add-hook 'odin-ts-mode-local-vars-hook #'eglot-ensure 'append))
+  (add-hook 'odin-mode-local-vars-hook #'lsp! 'append)
+  (add-hook 'odin-ts-mode-local-vars-hook #'lsp! 'append))
+
+;; (use-package! odin-mode
+;;   :defer t
+;;   :mode ("\\.odin\\'" . odin-mode)
+;;   :config
+;;   (add-hook 'odin-mode-local-vars-hook #'eglot-ensure 'append)
+;;   (add-hook 'odin-ts-mode-local-vars-hook #'eglot-ensure 'append))
 #+end_src
 
 ** Optimizing a little
