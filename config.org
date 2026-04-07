@@ -259,6 +259,10 @@ I recently deleted a bunch of commented-out code that I didn't even needed anymo
 (setq lsp-idle-delay 0.010)
 #+end_src
 * editor: format
+** Disabling evil-mc
+#+begin_src emacs-lisp
+;; (global-evil-mc-mode -1)
+#+end_src
 ** clang-format
 I was using the following code as a quick fix when learning through LearnOpenGL as I needed the LSP/format to not automatically sort includes on save. Then I learned more about all of this and using a .clang-format file. I'll keep this in here just for reference but I might delete soon.
 #+begin_src emacs-lisp
