@@ -409,9 +409,9 @@ Need to be very careful with this if I'll be playing around with md-roam. I bett
 
 * Gptel (Might remove this)
 #+begin_src emacs-lisp
-(use-package! gptel
-  :config
-  (setq! gptel-api-key (getenv "openai_key")))
+;; (use-package! gptel
+;;   :config
+;;   (setq! gptel-api-key (getenv "openai_key")))
 #+end_src
 
 * Org-mode capture templates (Copied from Joshua Blais. Thanks)
@@ -474,7 +474,7 @@ Need to be very careful with this if I'll be playing around with md-roam. I bett
 * LLM's
 ** Ellama 
 #+begin_src emacs-lisp
-(setq ellama-sessions-directory "~/.emacs.d/.local/cache/ellama-sessions")
+;; (setq ellama-sessions-directory "~/.emacs.d/.local/cache/ellama-sessions")
 #+end_src
 
 * Google calendar
