@@ -44,14 +44,25 @@ See 'C-h v doom-font' for documentation and more examples of what they accept.
 ;;       doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font" :size 17 ))
 
 ;; It seems we can also use Iosevka Nerd Font Mono. And *I think* it looks better. Although the macOS config looks kinda too small so I'd keep the same font size I've been using on my Linux Desktop.
-  (setq doom-font (font-spec :family "Maple Mono NF"
+;; Deleted this to just try maybe Jetbrains?
+  ;; (setq doom-font (font-spec :family "Maple Mono NF"
+  ;;                           ;; I think size 16 is comfy for macbook, use a little bigger on Desktop
+  ;;                           :size 15 :weight 'semi-light)
+  ;;      ;; Recently, I decided to increase the font size by default on Linux, it was at 18 before, I'll try how it feels at 20 for some days
+  ;;       doom-variable-pitch-font (font-spec :family "Maple Mono NF"
+  ;;                                          ;; 16 for macbook
+  ;;                                          :size 16 )
+  ;;      doom-big-font (font-spec :family "Maple Mono Bold NF"
+  ;;                               :size 25))
+
+  (setq doom-font (font-spec :family "JetBrainsMono Nerd Font"
                             ;; I think size 16 is comfy for macbook, use a little bigger on Desktop
-                            :size 15 :weight 'semi-light)
+                            :size 16 :weight 'semi-light)
        ;; Recently, I decided to increase the font size by default on Linux, it was at 18 before, I'll try how it feels at 20 for some days
-        doom-variable-pitch-font (font-spec :family "Maple Mono NF"
+        doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font"
                                            ;; 16 for macbook
                                            :size 16 )
-       doom-big-font (font-spec :family "Maple Mono Bold NF"
+       doom-big-font (font-spec :family "JetBrainsMono Nerd Font"
                                 :size 25))
 
 ;; on macOS we need a slightly smaller font (I should still try to see how the config above works)
@@ -102,7 +113,7 @@ Not really interested in using Circadian anymore. However I'll keep it commented
 ** Setting only one theme
 I'm just using Everforest for now. I think it looks neat and uses that big font on Org files' titles. Sometimes I still think Nord (and also Nord light) still look great so we might go back to that
 #+begin_src emacs-lisp
-(setq doom-theme 'base16-everforest-dark-hard)
+(setq doom-theme 'doom-tomorrow-night)
 #+end_src
 
 * Relative numbers
