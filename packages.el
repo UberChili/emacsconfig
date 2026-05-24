@@ -62,6 +62,7 @@
 (package! spacemacs-theme)
 (package! naysayer-theme)
 (package! base16-theme)
+(package! color-theme-sanityinc-tomorrow)
 
 ;; Org and Org-Roam
 (package! org-roam)
